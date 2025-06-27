@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwww_qroma_project=self.webpackChunkwww_qroma_project||[]).push([[1903],{1912:a=>{a.exports=JSON.parse('{"blogBasePath":"/qroma-api4-ws2812fx/blog","blogTitle":"Blog","authorsListPath":"/qroma-api4-ws2812fx/blog/authors"}')}}]);

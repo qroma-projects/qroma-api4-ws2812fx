@@ -1,0 +1,1 @@
+{"name": "qroma-api4-ws2812fx", "version": "esp32", "builds": [{"chipFamily": "ESP32-C3", "parts": [{"path": "qroma-api4-ws2812fx-firmware-adafruit_qtpy_esp32c3.bin", "offset": 0}]}]}

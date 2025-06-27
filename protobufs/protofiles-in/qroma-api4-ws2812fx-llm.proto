@@ -1,0 +1,500 @@
+syntax = "proto3";
+
+// // WS2812FX Protocol Buffer Messages
+// // Maps to the WS2812FX library API from https://github.com/kitesurfer1404/WS2812FX
+
+// // ============================================================================
+// // ENUMS
+// // ============================================================================
+
+// // WS2812FX modes - maps to the FX_MODE_* constants
+// enum WS2812FXMode {
+//   WS2812FX_MODE_STATIC = 0;
+//   WS2812FX_MODE_BLINK = 1;
+//   WS2812FX_MODE_BREATH = 2;
+//   WS2812FX_MODE_COLOR_WIPE = 3;
+//   WS2812FX_MODE_COLOR_WIPE_INV = 4;
+//   WS2812FX_MODE_COLOR_WIPE_REV = 5;
+//   WS2812FX_MODE_COLOR_WIPE_REV_INV = 6;
+//   WS2812FX_MODE_COLOR_WIPE_RANDOM = 7;
+//   WS2812FX_MODE_RANDOM_COLOR = 8;
+//   WS2812FX_MODE_SINGLE_DYNAMIC = 9;
+//   WS2812FX_MODE_MULTI_DYNAMIC = 10;
+//   WS2812FX_MODE_RAINBOW = 11;
+//   WS2812FX_MODE_RAINBOW_CYCLE = 12;
+//   WS2812FX_MODE_SCAN = 13;
+//   WS2812FX_MODE_DUAL_SCAN = 14;
+//   WS2812FX_MODE_FADE = 15;
+//   WS2812FX_MODE_THEATER_CHASE = 16;
+//   WS2812FX_MODE_THEATER_CHASE_RAINBOW = 17;
+//   WS2812FX_MODE_RUNNING_LIGHTS = 18;
+//   WS2812FX_MODE_TWINKLE = 19;
+//   WS2812FX_MODE_TWINKLE_FADE = 20;
+//   WS2812FX_MODE_TWINKLE_RANDOM = 21;
+//   WS2812FX_MODE_SPARKLE = 22;
+//   WS2812FX_MODE_FLASH_SPARKLE = 23;
+//   WS2812FX_MODE_HYPER_SPARKLE = 24;
+//   WS2812FX_MODE_STROBE = 25;
+//   WS2812FX_MODE_STROBE_RAINBOW = 26;
+//   WS2812FX_MODE_MULTI_STROBE = 27;
+//   WS2812FX_MODE_BLINK_RAINBOW = 28;
+//   WS2812FX_MODE_CHASE_WHITE = 29;
+//   WS2812FX_MODE_CHASE_COLOR = 30;
+//   WS2812FX_MODE_CHASE_RANDOM = 31;
+//   WS2812FX_MODE_CHASE_RAINBOW = 32;
+//   WS2812FX_MODE_CHASE_FLASH = 33;
+//   WS2812FX_MODE_CHASE_FLASH_RANDOM = 34;
+//   WS2812FX_MODE_CHASE_RAINBOW_WHITE = 35;
+//   WS2812FX_MODE_CHASE_BLACKOUT = 36;
+//   WS2812FX_MODE_CHASE_BLACKOUT_RAINBOW = 37;
+//   WS2812FX_MODE_COLOR_SWEEP_RANDOM = 38;
+//   WS2812FX_MODE_RUNNING_COLOR = 39;
+//   WS2812FX_MODE_RUNNING_RED_BLUE = 40;
+//   WS2812FX_MODE_RUNNING_RANDOM = 41;
+//   WS2812FX_MODE_LARSON_SCANNER = 42;
+//   WS2812FX_MODE_COMET = 43;
+//   WS2812FX_MODE_FIREWORKS = 44;
+//   WS2812FX_MODE_FIREWORKS_RANDOM = 45;
+//   WS2812FX_MODE_MERRY_CHRISTMAS = 46;
+//   WS2812FX_MODE_FIRE_FLICKER = 47;
+//   WS2812FX_MODE_FIRE_FLICKER_SOFT = 48;
+//   WS2812FX_MODE_FIRE_FLICKER_INTENSE = 49;
+//   WS2812FX_MODE_CIRCUS_COMBUSTUS = 50;
+//   WS2812FX_MODE_HALLOWEEN = 51;
+//   WS2812FX_MODE_BICOLOR_CHASE = 52;
+//   WS2812FX_MODE_TRICOLOR_CHASE = 53;
+//   WS2812FX_MODE_ICU = 54;
+//   WS2812FX_MODE_CUSTOM_0 = 55;
+//   WS2812FX_MODE_CUSTOM_1 = 56;
+//   WS2812FX_MODE_CUSTOM_2 = 57;
+//   WS2812FX_MODE_CUSTOM_3 = 58;
+// }
+
+// // WS2812FX segment modes
+// enum WS2812FXSegmentMode {
+//   WS2812FX_SEGMENT_MODE_FREEZE = 0;
+//   WS2812FX_SEGMENT_MODE_HOLD = 1;
+//   WS2812FX_SEGMENT_MODE_OFF = 2;
+//   WS2812FX_SEGMENT_MODE_ON = 3;
+// }
+
+// // WS2812FX color orders
+// enum WS2812FXColorOrder {
+//   WS2812FX_COLOR_ORDER_GRB = 0;
+//   WS2812FX_COLOR_ORDER_RGB = 1;
+//   WS2812FX_COLOR_ORDER_BRG = 2;
+//   WS2812FX_COLOR_ORDER_RBG = 3;
+//   WS2812FX_COLOR_ORDER_GBR = 4;
+//   WS2812FX_COLOR_ORDER_BGR = 5;
+// }
+
+// // ============================================================================
+// // BASIC CONTROL MESSAGES
+// // ============================================================================
+
+// // Initialize WS2812FX strip
+// message WS2812FXInitRequest {
+//   uint32 pin = 1;                    // GPIO pin number
+//   uint32 numPixels = 2;              // Number of LEDs in strip
+//   WS2812FXColorOrder colorOrder = 3; // Color order (default: GRB)
+//   uint32 maxPower = 4;               // Maximum power in mA (0 = unlimited)
+// }
+
+// message WS2812FXInitResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 numPixels = 3;
+// }
+
+// // Start WS2812FX service
+// message WS2812FXStartRequest {
+//   // Empty - just starts the service
+// }
+
+// message WS2812FXStartResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Stop WS2812FX service
+// message WS2812FXStopRequest {
+//   // Empty - just stops the service
+// }
+
+// message WS2812FXStopResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // ============================================================================
+// // MODE CONTROL MESSAGES
+// // ============================================================================
+
+// // Set mode for entire strip
+// message WS2812FXSetModeRequest {
+//   WS2812FXMode mode = 1;
+//   uint32 speed = 2;                  // Speed in milliseconds
+// }
+
+// message WS2812FXSetModeResponse {
+//   bool success = 1;
+//   string message = 2;
+//   WS2812FXMode mode = 3;
+//   uint32 speed = 4;
+// }
+
+// // Set mode for specific segment
+// message WS2812FXSetSegmentModeRequest {
+//   uint32 segmentIndex = 1;
+//   WS2812FXMode mode = 2;
+//   uint32 speed = 3;
+// }
+
+// message WS2812FXSetSegmentModeResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 segmentIndex = 3;
+//   WS2812FXMode mode = 4;
+//   uint32 speed = 5;
+// }
+
+// // Get current mode
+// message WS2812FXGetModeRequest {
+//   // Empty - returns current mode
+// }
+
+// message WS2812FXGetModeResponse {
+//   WS2812FXMode mode = 1;
+//   uint32 speed = 2;
+//   bool isRunning = 3;
+// }
+
+// // ============================================================================
+// // COLOR CONTROL MESSAGES
+// // ============================================================================
+
+// // RGB color structure
+// message WS2812FXColor {
+//   uint32 red = 1;
+//   uint32 green = 2;
+//   uint32 blue = 3;
+//   uint32 white = 4;                  // For RGBW strips
+// }
+
+// // Set color for entire strip
+// message WS2812FXSetColorRequest {
+//   WS2812FXColor color = 1;
+// }
+
+// message WS2812FXSetColorResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Set color for specific LED
+// message WS2812FXSetPixelColorRequest {
+//   uint32 pixelIndex = 1;
+//   WS2812FXColor color = 2;
+// }
+
+// message WS2812FXSetPixelColorResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Set color for specific segment
+// message WS2812FXSetSegmentColorRequest {
+//   uint32 segmentIndex = 1;
+//   WS2812FXColor color = 2;
+// }
+
+// message WS2812FXSetSegmentColorResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Get color of specific LED
+// message WS2812FXGetPixelColorRequest {
+//   uint32 pixelIndex = 1;
+// }
+
+// message WS2812FXGetPixelColorResponse {
+//   WS2812FXColor color = 1;
+//   bool success = 2;
+// }
+
+// // ============================================================================
+// // BRIGHTNESS CONTROL MESSAGES
+// // ============================================================================
+
+// // Set brightness for entire strip
+// message WS2812FXSetBrightnessRequest {
+//   uint32 brightness = 1;             // 0-255
+// }
+
+// message WS2812FXSetBrightnessResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 brightness = 3;
+// }
+
+// // Get current brightness
+// message WS2812FXGetBrightnessRequest {
+//   // Empty - returns current brightness
+// }
+
+// message WS2812FXGetBrightnessResponse {
+//   uint32 brightness = 1;
+// }
+
+// // ============================================================================
+// // SPEED CONTROL MESSAGES
+// // ============================================================================
+
+// // Set speed for entire strip
+// message WS2812FXSetSpeedRequest {
+//   uint32 speed = 1;                  // Speed in milliseconds
+// }
+
+// message WS2812FXSetSpeedResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 speed = 3;
+// }
+
+// // Get current speed
+// message WS2812FXGetSpeedRequest {
+//   // Empty - returns current speed
+// }
+
+// message WS2812FXGetSpeedResponse {
+//   uint32 speed = 1;
+// }
+
+// // ============================================================================
+// // SEGMENT CONTROL MESSAGES
+// // ============================================================================
+
+// // Segment definition
+// message WS2812FXSegment {
+//   uint32 start = 1;                  // Start LED index
+//   uint32 stop = 2;                   // Stop LED index (exclusive)
+//   WS2812FXMode mode = 3;             // Mode for this segment
+//   uint32 speed = 4;                  // Speed for this segment
+//   WS2812FXColor color = 5;           // Color for this segment
+//   WS2812FXSegmentMode segmentMode = 6; // Segment mode
+// }
+
+// // Add segment
+// message WS2812FXAddSegmentRequest {
+//   WS2812FXSegment segment = 1;
+// }
+
+// message WS2812FXAddSegmentResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 segmentIndex = 3;
+// }
+
+// // Update segment
+// message WS2812FXUpdateSegmentRequest {
+//   uint32 segmentIndex = 1;
+//   WS2812FXSegment segment = 2;
+// }
+
+// message WS2812FXUpdateSegmentResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Delete segment
+// message WS2812FXDeleteSegmentRequest {
+//   uint32 segmentIndex = 1;
+// }
+
+// message WS2812FXDeleteSegmentResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Get segment info
+// message WS2812FXGetSegmentRequest {
+//   uint32 segmentIndex = 1;
+// }
+
+// message WS2812FXGetSegmentResponse {
+//   bool success = 1;
+//   WS2812FXSegment segment = 2;
+// }
+
+// // Get all segments
+// message WS2812FXGetSegmentsRequest {
+//   // Empty - returns all segments
+// }
+
+// message WS2812FXGetSegmentsResponse {
+//   repeated WS2812FXSegment segments = 1;
+//   uint32 numSegments = 2;
+// }
+
+// // ============================================================================
+// // UTILITY MESSAGES
+// // ============================================================================
+
+// // Clear all LEDs
+// message WS2812FXClearRequest {
+//   // Empty - clears all LEDs
+// }
+
+// message WS2812FXClearResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Fill entire strip with color
+// message WS2812FXFillRequest {
+//   WS2812FXColor color = 1;
+//   uint32 first = 2;                  // First LED (0 = start)
+//   uint32 count = 3;                  // Number of LEDs (0 = all)
+// }
+
+// message WS2812FXFillResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Show current state
+// message WS2812FXShowRequest {
+//   // Empty - shows current state
+// }
+
+// message WS2812FXShowResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+// // Get strip information
+// message WS2812FXGetInfoRequest {
+//   // Empty - returns strip info
+// }
+
+// message WS2812FXGetInfoResponse {
+//   uint32 numPixels = 1;
+//   uint32 brightness = 2;
+//   WS2812FXMode mode = 3;
+//   uint32 speed = 4;
+//   bool isRunning = 5;
+//   uint32 numSegments = 6;
+//   WS2812FXColorOrder colorOrder = 7;
+//   uint32 maxPower = 8;
+// }
+
+// // ============================================================================
+// // POWER MANAGEMENT MESSAGES
+// // ============================================================================
+
+// // Set maximum power
+// message WS2812FXSetMaxPowerRequest {
+//   uint32 maxPower = 1;               // Maximum power in mA
+// }
+
+// message WS2812FXSetMaxPowerResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 maxPower = 3;
+// }
+
+// // Get current power usage
+// message WS2812FXGetPowerRequest {
+//   // Empty - returns current power usage
+// }
+
+// message WS2812FXGetPowerResponse {
+//   uint32 currentPower = 1;           // Current power usage in mA
+//   uint32 maxPower = 2;               // Maximum power in mA
+// }
+
+// // ============================================================================
+// // CUSTOM MODE MESSAGES
+// // ============================================================================
+
+// // Set custom mode function
+// message WS2812FXSetCustomModeRequest {
+//   uint32 customModeIndex = 1;        // 0-3 for custom modes
+//   string customModeName = 2;         // Name for the custom mode
+//   // Note: Custom mode function implementation would be handled separately
+// }
+
+// message WS2812FXSetCustomModeResponse {
+//   bool success = 1;
+//   string message = 2;
+//   uint32 customModeIndex = 3;
+// }
+
+// // ============================================================================
+// // COMMAND/RESPONSE WRAPPERS
+// // ============================================================================
+
+// // Main command wrapper
+// message WS2812FXCommand {
+//   oneof command {
+//     WS2812FXInitRequest initRequest = 1;
+//     WS2812FXStartRequest startRequest = 2;
+//     WS2812FXStopRequest stopRequest = 3;
+//     WS2812FXSetModeRequest setModeRequest = 4;
+//     WS2812FXSetSegmentModeRequest setSegmentModeRequest = 5;
+//     WS2812FXGetModeRequest getModeRequest = 6;
+//     WS2812FXSetColorRequest setColorRequest = 7;
+//     WS2812FXSetPixelColorRequest setPixelColorRequest = 8;
+//     WS2812FXSetSegmentColorRequest setSegmentColorRequest = 9;
+//     WS2812FXGetPixelColorRequest getPixelColorRequest = 10;
+//     WS2812FXSetBrightnessRequest setBrightnessRequest = 11;
+//     WS2812FXGetBrightnessRequest getBrightnessRequest = 12;
+//     WS2812FXSetSpeedRequest setSpeedRequest = 13;
+//     WS2812FXGetSpeedRequest getSpeedRequest = 14;
+//     WS2812FXAddSegmentRequest addSegmentRequest = 15;
+//     WS2812FXUpdateSegmentRequest updateSegmentRequest = 16;
+//     WS2812FXDeleteSegmentRequest deleteSegmentRequest = 17;
+//     WS2812FXGetSegmentRequest getSegmentRequest = 18;
+//     WS2812FXGetSegmentsRequest getSegmentsRequest = 19;
+//     WS2812FXClearRequest clearRequest = 20;
+//     WS2812FXFillRequest fillRequest = 21;
+//     WS2812FXShowRequest showRequest = 22;
+//     WS2812FXGetInfoRequest getInfoRequest = 23;
+//     WS2812FXSetMaxPowerRequest setMaxPowerRequest = 24;
+//     WS2812FXGetPowerRequest getPowerRequest = 25;
+//     WS2812FXSetCustomModeRequest setCustomModeRequest = 26;
+//   }
+// }
+
+// // Main response wrapper
+// message WS2812FXResponse {
+//   oneof response {
+//     WS2812FXInitResponse initResponse = 1;
+//     WS2812FXStartResponse startResponse = 2;
+//     WS2812FXStopResponse stopResponse = 3;
+//     WS2812FXSetModeResponse setModeResponse = 4;
+//     WS2812FXSetSegmentModeResponse setSegmentModeResponse = 5;
+//     WS2812FXGetModeResponse getModeResponse = 6;
+//     WS2812FXSetColorResponse setColorResponse = 7;
+//     WS2812FXSetPixelColorResponse setPixelColorResponse = 8;
+//     WS2812FXSetSegmentColorResponse setSegmentColorResponse = 9;
+//     WS2812FXGetPixelColorResponse getPixelColorResponse = 10;
+//     WS2812FXSetBrightnessResponse setBrightnessResponse = 11;
+//     WS2812FXGetBrightnessResponse getBrightnessResponse = 12;
+//     WS2812FXSetSpeedResponse setSpeedResponse = 13;
+//     WS2812FXGetSpeedResponse getSpeedResponse = 14;
+//     WS2812FXAddSegmentResponse addSegmentResponse = 15;
+//     WS2812FXUpdateSegmentResponse updateSegmentResponse = 16;
+//     WS2812FXDeleteSegmentResponse deleteSegmentResponse = 17;
+//     WS2812FXGetSegmentResponse getSegmentResponse = 18;
+//     WS2812FXGetSegmentsResponse getSegmentsResponse = 19;
+//     WS2812FXClearResponse clearResponse = 20;
+//     WS2812FXFillResponse fillResponse = 21;
+//     WS2812FXShowResponse showResponse = 22;
+//     WS2812FXGetInfoResponse getInfoResponse = 23;
+//     WS2812FXSetMaxPowerResponse setMaxPowerResponse = 24;
+//     WS2812FXGetPowerResponse getPowerResponse = 25;
+//     WS2812FXSetCustomModeResponse setCustomModeResponse = 26;
+//   }
+// }

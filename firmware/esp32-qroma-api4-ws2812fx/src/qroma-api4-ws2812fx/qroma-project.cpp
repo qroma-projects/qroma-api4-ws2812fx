@@ -2,6 +2,7 @@
 #include "qroma-config.h"
 #include "qroma-commands.h"
 #include "qroma/qroma.h"
+#include "api4-ws2812fx/api4-ws2812fx.h"
 
 
 AppCommandProcessor<
@@ -50,6 +51,21 @@ void qromaProjectSetup()
 
   myQromaApp.startupQroma();
 
+  // ws2812fx = WS2812FX(300, 14, NEO_GRB + NEO_KHZ800);
+  ws2812fx.init();
+
+  ws2812fx.setBrightness(65);
+  ws2812fx.setSpeed(200);
+  ws2812fx.setMode(FX_MODE_STATIC);
+  // ws2812fx.setMode(FX_MODE_RAINBOW_CYCLE);
+  ws2812fx.setColor(0, 0, 0);
+
+  // ws2812fx.start();
+
+  // ws2812fx.show();
+
+  // delay(1000);
+
   saveDefaultConfigs();
 }
 
@@ -58,6 +74,9 @@ void qromaProjectLoop()
 {
   logInfoUintWithDescription("QROMA PROJECT LOOP - ", updateCounter);
   myQromaApp.tick();
+  
+  // Service WS2812FX animations
+  // ws2812fx.service();
 
   updateCounter++;
 }

@@ -1,0 +1,238 @@
+syntax = "proto3";
+
+// WS2812FX Protocol Buffer Messages
+// Maps to the WS2812FX library API from https://github.com/kitesurfer1404/WS2812FX
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+// WS2812FX modes - maps to the FX_MODE_* constants
+enum WS2812FXMode {
+  WS2812FX_MODE_STATIC = 0;
+  WS2812FX_MODE_BLINK = 1;
+  WS2812FX_MODE_BREATH = 2;
+  WS2812FX_MODE_COLOR_WIPE = 3;
+  WS2812FX_MODE_COLOR_WIPE_INV = 4;
+  WS2812FX_MODE_COLOR_WIPE_REV = 5;
+  WS2812FX_MODE_COLOR_WIPE_REV_INV = 6;
+  WS2812FX_MODE_COLOR_WIPE_RANDOM = 7;
+  WS2812FX_MODE_RANDOM_COLOR = 8;
+  WS2812FX_MODE_SINGLE_DYNAMIC = 9;
+  WS2812FX_MODE_MULTI_DYNAMIC = 10;
+  WS2812FX_MODE_RAINBOW = 11;
+  WS2812FX_MODE_RAINBOW_CYCLE = 12;
+  WS2812FX_MODE_SCAN = 13;
+  WS2812FX_MODE_DUAL_SCAN = 14;
+  WS2812FX_MODE_FADE = 15;
+  WS2812FX_MODE_THEATER_CHASE = 16;
+  WS2812FX_MODE_THEATER_CHASE_RAINBOW = 17;
+  WS2812FX_MODE_RUNNING_LIGHTS = 18;
+  WS2812FX_MODE_TWINKLE = 19;
+  WS2812FX_MODE_TWINKLE_FADE = 20;
+  WS2812FX_MODE_TWINKLE_RANDOM = 21;
+  WS2812FX_MODE_SPARKLE = 22;
+  WS2812FX_MODE_FLASH_SPARKLE = 23;
+  WS2812FX_MODE_HYPER_SPARKLE = 24;
+  WS2812FX_MODE_STROBE = 25;
+  WS2812FX_MODE_STROBE_RAINBOW = 26;
+  WS2812FX_MODE_MULTI_STROBE = 27;
+  WS2812FX_MODE_BLINK_RAINBOW = 28;
+  WS2812FX_MODE_CHASE_WHITE = 29;
+  WS2812FX_MODE_CHASE_COLOR = 30;
+  WS2812FX_MODE_CHASE_RANDOM = 31;
+  WS2812FX_MODE_CHASE_RAINBOW = 32;
+  WS2812FX_MODE_CHASE_FLASH = 33;
+  WS2812FX_MODE_CHASE_FLASH_RANDOM = 34;
+  WS2812FX_MODE_CHASE_RAINBOW_WHITE = 35;
+  WS2812FX_MODE_CHASE_BLACKOUT = 36;
+  WS2812FX_MODE_CHASE_BLACKOUT_RAINBOW = 37;
+  WS2812FX_MODE_COLOR_SWEEP_RANDOM = 38;
+  WS2812FX_MODE_RUNNING_COLOR = 39;
+  WS2812FX_MODE_RUNNING_RED_BLUE = 40;
+  WS2812FX_MODE_RUNNING_RANDOM = 41;
+  WS2812FX_MODE_LARSON_SCANNER = 42;
+  WS2812FX_MODE_COMET = 43;
+  WS2812FX_MODE_FIREWORKS = 44;
+  WS2812FX_MODE_FIREWORKS_RANDOM = 45;
+  WS2812FX_MODE_MERRY_CHRISTMAS = 46;
+  WS2812FX_MODE_FIRE_FLICKER = 47;
+  WS2812FX_MODE_FIRE_FLICKER_SOFT = 48;
+  WS2812FX_MODE_FIRE_FLICKER_INTENSE = 49;
+  WS2812FX_MODE_CIRCUS_COMBUSTUS = 50;
+  WS2812FX_MODE_HALLOWEEN = 51;
+  WS2812FX_MODE_BICOLOR_CHASE = 52;
+  WS2812FX_MODE_TRICOLOR_CHASE = 53;
+  WS2812FX_MODE_ICU = 54;
+  WS2812FX_MODE_CUSTOM_0 = 55;
+  WS2812FX_MODE_CUSTOM_1 = 56;
+  WS2812FX_MODE_CUSTOM_2 = 57;
+  WS2812FX_MODE_CUSTOM_3 = 58;
+}
+
+// WS2812FX segment modes
+enum WS2812FXSegmentMode {
+  WS2812FX_SEGMENT_MODE_FREEZE = 0;
+  WS2812FX_SEGMENT_MODE_HOLD = 1;
+  WS2812FX_SEGMENT_MODE_OFF = 2;
+  WS2812FX_SEGMENT_MODE_ON = 3;
+}
+
+// WS2812FX color orders
+enum WS2812FXColorOrder {
+  WS2812FX_COLOR_ORDER_NOT_SET = 0;
+  
+  WS2812FX_COLOR_ORDER_RGB =   1;
+  WS2812FX_COLOR_ORDER_RBG =   2;
+  WS2812FX_COLOR_ORDER_GRB =   3;
+  WS2812FX_COLOR_ORDER_GBR =   4;
+  WS2812FX_COLOR_ORDER_BRG =   5;
+  WS2812FX_COLOR_ORDER_BGR =   6;
+
+  WS2812FX_COLOR_ORDER_WRGB =  7;
+  WS2812FX_COLOR_ORDER_WRBG =  8;
+  WS2812FX_COLOR_ORDER_WGRB =  9;
+  WS2812FX_COLOR_ORDER_WGBR = 10;
+  WS2812FX_COLOR_ORDER_WBRG = 11;
+  WS2812FX_COLOR_ORDER_WBGR = 12;
+
+  WS2812FX_COLOR_ORDER_RWGB = 13;
+  WS2812FX_COLOR_ORDER_RWBG = 14;
+  WS2812FX_COLOR_ORDER_RGWB = 15;
+  WS2812FX_COLOR_ORDER_RGBW = 16;
+  WS2812FX_COLOR_ORDER_RBWG = 17;
+  WS2812FX_COLOR_ORDER_RBGW = 18;
+
+  WS2812FX_COLOR_ORDER_GWRB = 19;
+  WS2812FX_COLOR_ORDER_GWBR = 20;
+  WS2812FX_COLOR_ORDER_GRWB = 21;
+  WS2812FX_COLOR_ORDER_GRBW = 22;
+  WS2812FX_COLOR_ORDER_GBWR = 23;
+  WS2812FX_COLOR_ORDER_GBRW = 24;
+
+  WS2812FX_COLOR_ORDER_BWRG = 25;
+  WS2812FX_COLOR_ORDER_BWGR = 26;
+  WS2812FX_COLOR_ORDER_BRWG = 27;
+  WS2812FX_COLOR_ORDER_BRGW = 28;
+  WS2812FX_COLOR_ORDER_BGWR = 29;
+  WS2812FX_COLOR_ORDER_BGRW = 30;
+}
+
+
+enum WS2812FX_NeoPixelTxRate {
+  WS2812FX_NEO_PIXEL_TX_RATE_NOT_SET =   0;
+  WS2812FX_NEO_PIXEL_TX_RATE_400_KHZ =   1;
+  WS2812FX_NEO_PIXEL_TX_RATE_800_KHZ =   2;
+}
+
+// ============================================================================
+// BASIC CONTROL MESSAGES
+// ============================================================================
+
+// Initialize WS2812FX strip
+message WS2812FxConstructAndInitRequest {
+  uint32 ledCount = 1;              // Number of LEDs in strip
+  uint32 pin = 2;                    // GPIO pin number
+  WS2812FXColorOrder neoPixelRgbOrder = 3; // Color order
+  WS2812FX_NeoPixelTxRate neoPixelTxRate = 4; // NeoPixel transmission rate
+}
+
+message NoArgRequest { }
+
+message NoArgResponse { }
+
+
+message QromaColor {
+  uint32 red = 1;
+  uint32 green = 2;
+  uint32 blue = 3;
+}
+
+message SetPixelColorRequest {
+  uint32 pixelIndex = 1;
+  QromaColor color = 2;
+}
+
+message FillRequest {
+  QromaColor color = 1;
+  uint32 firstPixel = 2;
+  uint32 numPixels = 3;
+}
+
+message SetModeRequest {
+  WS2812FXMode mode = 1;
+}
+
+message SetBrightnessRequest {
+  uint32 brightness = 1;
+}
+
+message SetSpeedRequest {
+  uint32 speed = 1;
+}
+
+message IncreaseBrightnessRequest {
+  uint32 amount = 1;
+}
+
+message DecreaseBrightnessRequest {
+  uint32 amount = 1;
+}
+
+
+// ============================================================================
+// COMMAND/RESPONSE WRAPPERS
+// ============================================================================
+
+
+// Main command wrapper
+message Ws2812FxApiTx {
+  oneof request {
+    WS2812FxConstructAndInitRequest constructAndInit = 1;
+    NoArgRequest start = 2;
+    NoArgRequest stop = 3;
+    NoArgRequest pause = 4;
+    NoArgRequest resume = 5;
+    NoArgRequest service = 6;
+    NoArgRequest show = 7;
+    NoArgRequest stripOff = 8;
+    NoArgRequest fadeOut = 9;
+    QromaColor fadeOutToColor = 10;
+
+    SetModeRequest setMode = 11;
+    QromaColor setColor = 12;
+    SetSpeedRequest setSpeed = 13;
+    FillRequest fill = 14;
+    SetPixelColorRequest setPixelColor = 15;
+    SetBrightnessRequest setBrightness = 16;
+    IncreaseBrightnessRequest increaseBrightness = 17;
+    DecreaseBrightnessRequest decreaseBrightness = 18;
+
+    
+  }
+}
+
+// Main response wrapper
+message Ws2812FxApiRx {
+  oneof response {
+    WS2812FxConstructAndInitRequest ackConstructAndInit = 1;
+    NoArgResponse ackStart = 2;
+    NoArgResponse ackStop = 3;
+    NoArgResponse ackPause = 4;
+    NoArgResponse ackResume = 5;
+    NoArgResponse ackService = 6;
+    NoArgResponse ackShow = 7;
+    NoArgResponse ackStripOff = 8;
+    NoArgResponse ackFadeOut = 9;
+    QromaColor ackFadeOutToColor = 10;
+    
+    SetModeRequest ackSetMode = 11;
+    QromaColor ackSetColor = 12;
+    SetSpeedRequest ackSetSpeed = 13;
+    FillRequest ackFill = 14;
+    SetPixelColorRequest ackSetPixelColor = 15;
+    SetBrightnessRequest ackSetBrightness = 16;
+    IncreaseBrightnessRequest ackIncreaseBrightness = 17;
+    DecreaseBrightnessRequest ackDecreaseBrightness = 18;
+  }
+}

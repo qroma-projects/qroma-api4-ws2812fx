@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "qroma-api4-ws2812fx.proto";
+
+
+message ActivateLineTargetRequest {
+  QromaColor backgroundColor = 1;
+  QromaColor targetColor = 2;
+  uint32 targetStartIndex = 3;
+  uint32 targetEndIndex = 4;
+}
+
+message QromaLineTargetCommand {
+  oneof command {
+    ActivateLineTargetRequest activateLineTarget = 1;
+  }
+}

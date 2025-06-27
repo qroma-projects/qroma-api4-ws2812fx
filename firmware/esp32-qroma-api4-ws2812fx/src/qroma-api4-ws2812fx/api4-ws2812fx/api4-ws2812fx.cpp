@@ -1,0 +1,7 @@
+#include "api4-ws2812fx.h"
+
+
+#define LED_COUNT 300
+#define LED_PIN 14
+
+WS2812FX ws2812fx = WS2812FX(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);

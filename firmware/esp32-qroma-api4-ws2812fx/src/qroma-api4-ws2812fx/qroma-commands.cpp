@@ -4,6 +4,7 @@
 #include "qroma/qroma.h"
 #include "boards/qroma-boards.h"
 #include "qroma-project.h"
+#include "qroma-line-target-commands.h"
 
 
 const char * HELLO_QROMA_RESPONSE_PREFIX = "Hello from Qroma, ";
@@ -104,6 +105,16 @@ void onMyProjectCommand(MyProjectCommand * message, MyProjectResponse * response
       response->which_response = MyProjectResponse_setBoardLightColorResponse_tag;
       handleSetBoardLightColorRequest(&(message->command.setBoardLightColorRequest), 
         (&(response->response.setBoardLightColorResponse)));
+      break;
+
+    case MyProjectCommand_qromaWs2812fxApiTx_tag:
+      response->which_response = MyProjectResponse_qromaWs2812fxApiRx_tag;
+      onWs2812FxCommand(&(message->command.qromaWs2812fxApiTx), &(response->response.qromaWs2812fxApiRx));
+      break;
+
+    case MyProjectCommand_qromaLineTargetCommand_tag:
+      response->which_response = MyProjectResponse_ackQromaLineTargetCommand_tag;
+      onLineTargetCommand(&(message->command.qromaLineTargetCommand), &(response->response.ackQromaLineTargetCommand));
       break;
 
     default:
